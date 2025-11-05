@@ -34,6 +34,8 @@ AUTH_USER_MODEL = 'userapp.User'
 APPS = [
     'userapp',
     'shared',
+    'planapp',
+    'subscribeapp',
 ]
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,7 +44,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_spectacular',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'django_filters',
+
 ] + APPS
+SPECTACULAR_SETTINGS = {
+    "TITLE": "shabab  API",
+    "DESCRIPTION": "shabab  Swagger Documentation",
+    "VERSION": "v1",
+    "SCHEMA_PATH_PREFIX": "/api/",
+    # "SCHEMA_PATH_PREFIX_TRIM": False,
+    "SERVE_INCLUDE_SCHEMA": False,
+    "DEFAULT_GENERATOR_CLASS": "drf_spectacular.generators.SchemaGenerator",
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "persistAuthorization": True,
+        "docExpansion": "none",
+        "filter": True,
+        "displayOperationId": True,
+        "displayRequestDuration": True,
+        "theme": "dark",
+    },
+    "SECURITY": [
+        {
+            "JWT": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+            }
+        }
+    ],
+    "SERVE_AUTHENTICATION": ["rest_framework.authentication.SessionAuthentication"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

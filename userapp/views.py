@@ -20,6 +20,12 @@ class UserViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     def get_serializer_class(self):
         if self.action == "login":
             return LoginSerializer
+        if self.action == "register":
+            return UserSerializer
+        if self.action == "refresh_token":
+            return RefreshTokenSerializer
+        if self.action == "update_profile":
+            return UpdateProfileSerializer
         return super().get_serializer_class()
 
     @action(methods=["post"], detail=False)
@@ -37,7 +43,7 @@ class UserViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
 
     @action(detail=False, methods=["post"])
-    def refresh_token(request):
+    def refresh_token(self,request):
         serializer = RefreshTokenSerializer(data=request.data)
         if serializer.is_valid ():
             return Response({"data": serializer.data})
@@ -45,7 +51,7 @@ class UserViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     
 
     @action(detail=False, methods=["patch"], url_path="update-profile", permission_classes=[IsAuthenticated])
-    def update_profile(request):
+    def update_profile(self ,request):
         user = request.user
         serializer = UpdateProfileSerializer(user, data=request.data, partial=True)
         if  serializer.is_valid ():
