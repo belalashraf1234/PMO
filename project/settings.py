@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -51,8 +51,8 @@ INSTALLED_APPS = [
 
 ] + APPS
 SPECTACULAR_SETTINGS = {
-    "TITLE": "shabab  API",
-    "DESCRIPTION": "shabab  Swagger Documentation",
+    "TITLE": "PMO  API",
+    "DESCRIPTION": "PMO  Swagger Documentation",
     "VERSION": "v1",
     "SCHEMA_PATH_PREFIX": "/api/",
     # "SCHEMA_PATH_PREFIX_TRIM": False,
@@ -127,6 +127,8 @@ REST_FRAMEWORK = {
         "custom_anon": "30/min",
         "custom_user": "40/min",
     },
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+
 }
 
 # Database
